@@ -178,6 +178,6 @@ func main(){
             },
             objs, err := meta.ExtractList(obj)
             fieldName := "{.metadata.name}"
-	        runtimeSortName := NewRuntimeSort(fieldName, objs)
+	    runtimeSortName := NewRuntimeSort(fieldName, objs)
 
 }
