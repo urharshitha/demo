@@ -61,123 +61,123 @@ func main(){
 	field       string
 	name        string
 	expectedErr string
-}{
-	{
-		name: "empty",
-		obj: &corev1.PodList{
-			Items: []corev1.Pod{},
-		},
-		sort: &corev1.PodList{
-			Items: []corev1.Pod{},
-		},
-		field: "{.metadata.name}",
-	},
-	{
-		name: "in-order-already",
-		obj: &corev1.PodList{
-			Items: []corev1.Pod{
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "a",
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "b",
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "c",
-					},
-				},
-			},
-		},
-		sort: &corev1.PodList{
-			Items: []corev1.Pod{
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "a",
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "b",
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "c",
-					},
-				},
-			},
-		},
-		field: "{.metadata.name}",
-	},
-	{
-		name: "reverse-order",
-		obj: &corev1.PodList{
-			Items: []corev1.Pod{
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "b",
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "c",
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "a",
-					},
-				},
-			},
-		},
-		sort: &corev1.PodList{
-			Items: []corev1.Pod{
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "a",
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "b",
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "c",
-					},
-				},
-			},
-		},
-		field: "{.metadata.name}",
-	},
+    }{
+	    {
+		    name: "empty",
+		    obj: &corev1.PodList{
+			    Items: []corev1.Pod{},
+		    },
+		    sort: &corev1.PodList{
+			    Items: []corev1.Pod{},
+		    },
+		    field: "{.metadata.name}",
+	    },
+	    {
+		    name: "in-order-already",
+		    obj: &corev1.PodList{
+			    Items: []corev1.Pod{
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "a",
+					    },
+				    },
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "b",
+					    },
+				    },
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "c",
+					    },
+				    },
+			    },
+		    },
+		    sort: &corev1.PodList{
+			    Items: []corev1.Pod{
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "a",
+					    },
+				    },
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "b",
+					    },
+				    },
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "c",
+					    },
+				    },
+			    },
+		    },
+		    field: "{.metadata.name}",
+	    },
+	    {
+		    name: "reverse-order",
+		    obj: &corev1.PodList{
+			    Items: []corev1.Pod{
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "b",
+					    },
+				    },
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "c",
+					    },
+				    },
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "a",
+					    },
+				    },
+			    },
+		    },
+		    sort: &corev1.PodList{
+			    Items: []corev1.Pod{
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "a",
+					    },
+				    },
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "b",
+					    },
+				    },
+				    {
+					    ObjectMeta: metav1.ObjectMeta{
+						    Name: "c",
+					    },
+				    },
+			    },
+		    },
+		    field: "{.metadata.name}",
+	    },
 	
 
-}
-obj: &corev1.PodList{
-	Items: []corev1.Pod{
-		{
-			Spec: createPodSpecResource("", "", "0.5", ""),
-		},
-		{
-			Spec: createPodSpecResource("", "", "10", ""),
-		},
-		{
-			Spec: createPodSpecResource("", "", "100m", ""),
-		},
-		{
-			Spec: createPodSpecResource("", "", "", ""),
-		},
-	},
-},
-objs, err := meta.ExtractList(obj)
-	
+    }
+            
+            obj:= &corev1.PodList{
+	            Items: []corev1.Pod{
+		            {
+			            Spec: createPodSpecResource("", "", "0.5", ""),
+		            },
+		            {
+			            Spec: createPodSpecResource("", "", "10", ""),
+		            },
+		            {
+			            Spec: createPodSpecResource("", "", "100m", ""),
+		            },
+		            {
+			            Spec: createPodSpecResource("", "", "", ""),
+		            },
+	                },
+            },
+            objs, err := meta.ExtractList(obj)
+            fieldName := "{.metadata.name}"
+	        runtimeSortName := NewRuntimeSort(fieldName, objs)
 
-	fieldName := "{.metadata.name}"
-	runtimeSortName := NewRuntimeSort(fieldName, objs)
 }
